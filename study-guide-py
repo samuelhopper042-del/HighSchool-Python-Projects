@@ -1,9 +1,7 @@
 import json
 import os
 
-
 FILENAME = "study_guide.json"
-
 
 def load_topics():
     """Loads study topics from a file. Returns an empty list if no file exists."""
@@ -16,7 +14,6 @@ def load_topics():
             return []
     return []
 
-
 def save_topics(topics):
     """Saves the current study list to a file."""
     try:
@@ -25,13 +22,10 @@ def save_topics(topics):
     except IOError:
         print("Error: Could not save your topics to disk.")
 
-
 # Load existing data at startup
 study_list = load_topics()
 
-
 print("=== My Simple Study Guide Manager ===")
-
 
 while True:
     print("\n--------------------------------")
@@ -41,11 +35,9 @@ while True:
     print("4. Delete a topic")
     print("5. Reset/Clear all topics")
     print("6. Exit app")
-
-  
+    
     choice = input("\nChoose an option (1-6): ").strip()
-
-  
+    
     if choice == "1":
         new_topic = input("Type what you need to study: ").strip()
         if new_topic:
@@ -54,129 +46,84 @@ while True:
             print(f"Added: '{new_topic}'")
         else:
             print("Topic cannot be empty!")
-
-
-elif choice == "2":
-    if not study_list:
-        print("Your study guide is currently empty!")
-    else:
-        print("\n---Your Current Study Topics ---")
-        for number topic in enumerate(study_list,1)
-print(f"[{number}]{topic}")
-
-
+        
+    elif choice == "2":
+        if not study_list:
+            print("Your study guide is currently empty!")
+        else:
+            print("\n--- Your Current Study Topics ---")
+            for number, topic in enumerate(study_list, 1):
+                print(f"[{number}] {topic}")
+                
     elif choice == "3":
         if not study_list:
             print("Nothing to change yet! Add a topic first.")
         else:
-            print("\n---Which one do you want to change? ---")
-            for number, topic in enumerate(study_list,1):
-
-
-print(f"[{number}]{topic}")
-
-
-        raw_imput = imput("\nEnter the number you want to edit: ").strip()
-
-
-        if
-raw_imput.isdigit():
-        item_num = int(raw_imput)
-        list_index = item_num - 1
-
-
-        if 0 <= list_index < len(study_list:
+            print("\n--- Which one do you want to change? ---")
+            for number, topic in enumerate(study_list, 1):
+                print(f"[{number}] {topic}")
+                
+            raw_input = input("\nEnter the number you want to edit: ").strip()
+            
+            if raw_input.isdigit():
+                item_num = int(raw_input)
+                list_index = item_num - 1 
+                
+                if 0 <= list_index < len(study_list):
                     old_topic = study_list[list_index]
-
-
-updated_topic = input(f"Change'{old_topic}'to:".strip()
-            if
-updated_topic:
-
-
-study_list[list_index] = updated_topic
-
-
-save_topics(study_list) # Auto-save
-
-
-print("Topic successfully changed!")
+                    updated_topic = input(f"Change '{old_topic}' to: ").strip()
+                    if updated_topic:
+                        study_list[list_index] = updated_topic
+                        save_topics(study_list) # Auto-save
+                        print("Topic successfully changed!")
+                    else:
+                        print("Topic cannot be empty!")
                 else:
-
-
-print("Topic cannot be empty!")
+                    print("Invalid number choice.")
             else:
+                print("Please enter a valid number.")
 
-
-print("Invalid number choice.")
+    elif choice == "4":
+        if not study_list:
+            print("Nothing to delete yet!")
         else:
-            print("Please enter a valid number.")
-
-
-elif choice == "4":
-    if not study_list:
-        print   ("Nothing to delete yet!")
-    else:
-        print("\n--- Which one do you want to delete? ---")
-        for number, topic in enumerate(study_list, 1):
-
-
-print(f"[{number}]{topic}")
-
-
-        raw_imput = imput("\nEnter the number to delete:".strip()
-
-
-    if
-raw_input.isdigit():
-        item_num = int(raw_input)
-        list_index = item_num - 1
-
-
-        if 0 <=
-list_index < len(study_list):
-
-
-removed_topic = study_list.pop(list_index)
-
-
-save_topics(study_list) # Auto-save
-
-
-print(f"Successfully deleted:
-'{removed_topic}'")
+            print("\n--- Which one do you want to delete? ---")
+            for number, topic in enumerate(study_list, 1):
+                print(f"[{number}] {topic}")
+                
+            raw_input = input("\nEnter the number to delete: ").strip()
+            
+            if raw_input.isdigit():
+                item_num = int(raw_input)
+                list_index = item_num - 1
+                
+                if 0 <= list_index < len(study_list):
+                    removed_topic = study_list.pop(list_index)
+                    save_topics(study_list) # Auto-save
+                    print(f"Successfully deleted: '{removed_topic}'")
+                else:
+                    print("Invalid number choice.")
+            else:
+                print("Please enter a valid number.")
+                
+    elif choice == "5":
+        if not study_list:
+            print("Your list is already empty.")
         else:
-
-
-print("Invalid number choice.")
-        else:
-            print("Please enter a valid number.")
-
-
-elif choice == "5":
-    if not study_list:
-        print("Your list is already empty.")
-    else:
-        comfirm = imput(Are you sure you want to clear your entire list? (y/n):").strip().lower()
-        if comfirm == 'y':
-
-
-study_list.clear()
-
-
-save_topics(study_list) # Auto-save the empty list
-        print("Study guide reset successfully!")
-    else:
-        print("Reset cancelled.")
-
-
+            confirm = input("Are you sure you want to clear your entire list? (y/n): ").strip().lower()
+            if confirm == 'y':
+                study_list.clear()
+                save_topics(study_list) # Auto-save the empty list
+                print("Study guide reset successfully!")
+            else:
+                print("Reset cancelled.")
+                
     elif choice == "6":
-        print("Good luck studying! Goodbye,")
+        print("Good luck studying! Goodbye.")
         break
-
-
+        
     else:
-        print("Invalid choice, please type a number from 1 to 6
+        print("Invalid choice, please type a number from 1 to 6.")
 
 
 
